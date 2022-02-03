@@ -1,0 +1,9 @@
+beniget==0.4.1
+Cython==0.29.27
+gast==0.5.3
+numpy==1.21.5
+pkg-resources==0.0.0
+ply==3.11
+pybind11==2.9.1
+pythran==0.11.0
+scipy==1.7.3
