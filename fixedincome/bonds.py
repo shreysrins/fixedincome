@@ -3,7 +3,7 @@ Fixed income analytics pertaining to bonds
 """
 
 import numpy as np
-import scipy
+import scipy.optimize
 
 
 def npv(rate : float, values : np.ndarray) -> float:
