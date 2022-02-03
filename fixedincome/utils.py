@@ -1,5 +1,5 @@
 """
-Fixed income analytics pertaining to bonds
+Fixed income analytics (general)
 """
 
 
