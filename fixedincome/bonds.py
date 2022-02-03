@@ -2,6 +2,7 @@
 Fixed income analytics pertaining to bonds
 """
 
+
 import numpy as np
 import scipy.optimize
 
