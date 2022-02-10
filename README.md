@@ -4,5 +4,5 @@ Python Fixed Income Securities &amp; Derivatives analytics package, originally w
 ## Installation
 Installation is done through PIP; enter the following on the command line:
 ```bash
-$ pip3 install fixedincome-shreyass
+$ pip3 install fixedincome-analytics
 ```
