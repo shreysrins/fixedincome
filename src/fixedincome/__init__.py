@@ -14,3 +14,5 @@ Available subpackages
 """
 
 __all__ = ['utils']
+
+from fixedincome import *
