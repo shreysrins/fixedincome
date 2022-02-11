@@ -77,3 +77,69 @@ def rate(nper : int, pmt : float, pv : float, fv : float = 0, guess : float = 0.
     cash_flows[-1] += fv
 
     return irr(values=cash_flows, guess=guess)
+
+
+def pv(rate : float, nper : int, pmt : float, fv : float = 0, payment_type : int = 0) -> float:
+    """
+    Calculates the present value of a loan based on a constant interest rate.
+
+    Parameters
+    ----------
+    rate : float
+        The interest rate per period.
+    nper : int
+        The total number of payment periods in an annuity.
+    pmt : float
+        The constant payment amount made each period.
+    fv : float [optional]
+        The future value (i.e., cash balance to be attained after the last payment is made) of the annuity.
+    payment_type : int [optional]
+        Indicates when payments are due.
+            - 0 [default] : at the end of the period.
+            - 1 : at the beginning of the period
+
+    Returns
+    -------
+    float
+        The present value of the loan based on a constant interest rate.
+    """
+    
+    if rate != 0:
+        pv = -(pmt*(1 + rate*payment_type)*(((1 + rate)**nper - 1)/rate) + fv)/((1 + rate)**nper)
+    else:
+        pv = -(pmt*nper + fv)
+
+    return pv
+
+
+def fv(rate : float, nper : int, pmt : float, pv : float = 0, payment_type : int = 0) -> float:
+    """
+    Calculates the future value of a loan based on a constant interest rate.
+
+    Parameters
+    ----------
+    rate : float
+        The interest rate per period.
+    nper : int
+        The total number of payment periods in an annuity.
+    pmt : float
+        The constant payment amount made each period.
+    pv : float [optional]
+        The present value of the annuity.
+    payment_type : int [optional]
+        Indicates when payments are due.
+            - 0 [default] : at the end of the period.
+            - 1 : at the beginning of the period
+
+    Returns
+    -------
+    float
+        The future value of the loan based on a constant interest rate.
+    """
+    
+    if rate != 0:
+        fv = -(pv*(1 + rate)**nper + pmt*(1 + rate*payment_type)*(((1 + rate)**nper - 1)/rate))
+    else:
+        fv = -(pmt*nper + pv)
+
+    return fv
