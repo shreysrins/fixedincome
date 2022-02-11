@@ -1,5 +1,7 @@
 """
 Fixed income analytics (general)
+
+Implements various Excel functions useful for fixed income applications.
 """
 
 
