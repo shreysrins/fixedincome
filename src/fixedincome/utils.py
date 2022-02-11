@@ -71,7 +71,7 @@ def rate(nper : int, pmt : float, pv : float, fv : float = 0, guess : float = 0.
         The interest rate per period of the annuity.
     """
 
-    cash_flows = np.array([-1 * pv] + [pmt] * nper, dtype=float)
+    cash_flows = np.array([pv] + [pmt] * nper, dtype=float)
     cash_flows[-1] += fv
 
     return irr(values=cash_flows, guess=guess)
