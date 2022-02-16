@@ -138,7 +138,7 @@ def fv(rate_ : float, nper : int, pmt : float, pv_ : float = 0, type_ : int = 0)
         The future value of the loan based on a constant interest rate.
     """
     
-    if rate != 0:
+    if rate_ != 0:
         _fv = -(pv_*(1 + rate_)**nper + pmt*(1 + rate_*type_)*(((1 + rate_)**nper - 1)/rate_))
     else:
         _fv = -(pmt*nper + pv_)
