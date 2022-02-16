@@ -6,9 +6,10 @@ Implements various functions useful for bond analytics.
 
 
 import datetime
+from .utils import day_count_factor
 
 
-def accrint(issue : datetime.date, first_interest : datetime.date, settlement : datetime.date, rate : float, par : float, frequency : int, basis : int = 2, calc_method : bool = True) -> float:
+def accrint(issue : datetime.date, first_interest : datetime.date, settlement : datetime.date, rate : float, par : float, frequency : int, basis : int = 0) -> float:
     """
     Returns the accrued interest for a bond.
 
@@ -28,36 +29,21 @@ def accrint(issue : datetime.date, first_interest : datetime.date, settlement : 
         The number of coupon payments per year.
     basis : int [optional]
         The type of day count basis to use.
-            - 2 [default] : Actual/360
+            - 0 [default] : US (NASD) 30/360
+            - 1 : Actual/Actual
+            - 2 : Actual/360
             - 3 : Actual/365
-    calc_method : bool [optional]
-        The way to calculate the total accrued interest when the date of settlement is later than the date of first_interest.
-            - True [default] : calculate the total accrued interest from issue to settlement.
-            - False : calculate the accrued interest from first_interest to settlement.
+            - 4 : European 30/360
 
     Returns
     -------
     float
-        Accrued interest of the bond.
+        The accrued interest of the bond.
     """
 
-    if basis == 2:
-        days_in_year = 360
-    elif basis == 3:
-        days_in_year = 365
-    else:
-        raise ValueError
+    _day_count_factor = day_count_factor(start=issue, end=settlement, basis=basis, next_=first_interest, freq=frequency)
 
-    if settlement <= first_interest:
-        w = (first_interest - settlement).days / (days_in_year / frequency)
-        return (1 - w) * (rate / frequency) * par
-    else:
-        if calc_method:
-            w = (first_interest - settlement).days / (days_in_year / frequency)
-        return (1 - w) * (rate / frequency) * par
-
-
-    pass
+    return par * rate * _day_count_factor
 
 
 def price(settlement : datetime.date, maturity : datetime.date, rate : float, yld : float, redemption : float, frequency : int, basis : int = 2) -> float:
@@ -91,5 +77,5 @@ def price(settlement : datetime.date, maturity : datetime.date, rate : float, yl
     pass
 
 
-def bondYield():
+def yield_():
     pass
