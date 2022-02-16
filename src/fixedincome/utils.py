@@ -1,12 +1,13 @@
 """
 Fixed income analytics (general)
 
-Implements various Excel functions useful for fixed income applications.
+Implements various generic functions useful for fixed income applications.
 """
 
 
 import numpy as np
 import scipy.optimize
+import datetime
 
 
 def npv(rate_ : float, values : np.ndarray) -> float:
@@ -143,3 +144,63 @@ def fv(rate_ : float, nper : int, pmt : float, pv_ : float = 0, type_ : int = 0)
         _fv = -(pmt*nper + pv_)
 
     return _fv
+
+
+def _thirty_threesixty_day_count_factor(start : datetime.date, end : datetime.date) -> float:
+    """Calculate day count factor on a 30/360 basis (after date adjustments)."""
+    return (360 * (end.year - start.year) + 30 * (end.month - start.month) + (end.day - start.day)) / 360
+
+
+def day_count_factor(start : datetime.date, end : datetime.date, basis : int = 0, next_ : datetime.date = None, freq : int = None) -> float:
+    """
+    Calculates the day count factor between dates for measuring interest accrual.
+
+    Parameters
+    ----------
+    start : datetime.date
+        The starting date of the interest period.
+    end : datetime.date
+        The ending date of the accrual period.
+    basis : int [optional]
+        The type of day count basis to use.
+            - 0 [default] : US (NASD) 30/360
+            - 1 : Actual/Actual
+            - 2 : Actual/360
+            - 3 : Actual/365
+            - 4 : European 30/360
+    next_ : datetime.date [optional, required when basis == 1]
+        The ending date of the interest period, or starting date of the next interest period. This argument is required for the Actual/Actual basis.
+    freq : int [optional, required when basis == 1]
+        The number of interest payment periods in a full year.
+
+    Returns
+    -------
+    float
+        The day count factor, or percentage of interest that has linearly accrued, for the interest payment period.
+    """
+
+    # Switch calculation methodology by specified basis
+    if basis == 0: # US (NASD) 30/360
+        # Date adjustments
+        if end.day == 31 and (start.day == 30 or start.day == 31):
+            end = end.replace(day=30)
+        if start.day == 31:
+            start = start.replace(day=30)
+        return _thirty_threesixty_day_count_factor(start=start, end=end)
+    elif basis == 1: # Actual/Actual
+        assert next_, "Valid date of next coupon payment required for Actual/Actual basis"
+        assert freq and (freq > 0), "Valid number of annual coupon payments required for Actual/Actual basis"
+        return (end - start).days / (freq * (next_ - start).days)
+    elif basis == 2: # Actual/360
+        return (end - start).days / 360.0
+    elif basis == 3: # Actual/365
+        return (end - start).days / 365.0
+    elif basis == 4: # European 30/360
+        # Date adjustments
+        if start.day == 31:
+            start = start.replace(day=30)
+        if end.day == 31:
+            end = end.replace(day=30)
+        return _thirty_threesixty_day_count_factor(start=start, end=end)
+    else: # Basis misspecified
+        raise ValueError("Invalid basis specified.")
