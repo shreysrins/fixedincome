@@ -6,6 +6,7 @@ Implements various generic functions useful for fixed income applications.
 
 
 import datetime
+
 import numpy as np
 import scipy.optimize
 
