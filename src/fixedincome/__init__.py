@@ -11,6 +11,8 @@ Available subpackages
 ---------------------
     utils
         Basic functions useful for fixed income applications.
+    bonds
+        Functions useful for analyzing fixed rate bonds.
 """
 
 __all__ = ['utils', 'bonds']
