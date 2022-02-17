@@ -13,7 +13,13 @@ Updating is also done through PIP; enter the following on the command line:
 $ pip3 install fixedincome-analytics -U
 ```
 
-## Documentation
+## Usage
+This package is named `fixedincome`. We recommend using it in Python via
+```python3
+import fixedincome as fi
+```
+
+### Documentation
 Documentation is available through Python's built-in `help()` function. As an example, we can see package-level documentation using the following Python code:
 ```python3
 import fixedincome as fi
