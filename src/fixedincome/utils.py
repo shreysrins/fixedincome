@@ -5,9 +5,12 @@ Implements various generic functions useful for fixed income applications.
 """
 
 
+import datetime
 import numpy as np
 import scipy.optimize
-import datetime
+
+
+MONTHS_IN_YEAR = 12
 
 
 def npv(rate_ : float, values : np.ndarray) -> float:
