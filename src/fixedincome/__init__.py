@@ -13,6 +13,6 @@ Available subpackages
         Basic functions useful for fixed income applications.
 """
 
-__all__ = ['utils']
+__all__ = ['utils', 'bonds']
 
 from fixedincome import *
