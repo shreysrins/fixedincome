@@ -6,3 +6,6 @@ Installation is done through PIP; enter the following on the command line:
 ```bash
 $ pip3 install fixedincome-analytics
 ```
+
+## Documentation
+Documentation is available through Python's built-in `help()` function.
