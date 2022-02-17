@@ -14,4 +14,8 @@ $ pip3 install fixedincome-analytics -U
 ```
 
 ## Documentation
-Documentation is available through Python's built-in `help()` function.
+Documentation is available through Python's built-in `help()` function. As an example, we can see package-level documentation using the following Python code:
+```python3
+import fixedincome as fi
+help(fi)
+```
