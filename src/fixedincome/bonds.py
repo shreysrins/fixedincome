@@ -181,7 +181,7 @@ def yield_(settlement : datetime.date, maturity : datetime.date, rate : float, p
     _coupon_dates = coupon_dates(settlement=settlement, maturity=maturity, frequency=frequency)
 
     # Special case for when no remaining coupons to be paid (only principal)
-    if len(_coupon_dates) == 1:
+    if len(_coupon_dates) <= 2:
         _day_count_factor = day_count_factor(start=issue, end=settlement, basis=basis, next_=first_interest, freq=frequency)
         return ((redemption/100 + rate/frequency) - (_PAR/100 + (_day_count_factor * rate))) / (_PAR/100 + (_day_count_factor * rate)) * (frequency / (1 - _day_count_factor * frequency))
     else: # Use optimization to identify the yield that matches quoted clean price
