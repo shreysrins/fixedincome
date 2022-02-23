@@ -110,9 +110,9 @@ def pv(rate_ : float, nper : int, pmt : float, fv_ : float = 0, type_ : int = 0)
     """
     
     if rate != 0:
-        _pv = -(pmt*(1 + rate_*type_)*(((1 + rate_)**nper - 1)/rate_) + fv_)/((1 + rate_)**nper)
+        _pv = -(pmt*(1 + rate_ * type_)*(((1 + rate_)**nper - 1)/rate_) + fv_)/((1 + rate_)**nper)
     else:
-        _pv = -(pmt*nper + fv_)
+        _pv = -(pmt * nper + fv_)
 
     return _pv
 
@@ -143,9 +143,9 @@ def fv(rate_ : float, nper : int, pmt : float, pv_ : float = 0, type_ : int = 0)
     """
     
     if rate_ != 0:
-        _fv = -(pv_*(1 + rate_)**nper + pmt*(1 + rate_*type_)*(((1 + rate_)**nper - 1)/rate_))
+        _fv = -(pv_ * (1 + rate_)**nper + pmt * (1 + rate_*type_) * (((1 + rate_)**nper - 1)/rate_))
     else:
-        _fv = -(pmt*nper + pv_)
+        _fv = -(pmt * nper + pv_)
 
     return _fv
 
@@ -180,7 +180,7 @@ def day_count_factor(start : datetime.date, end : datetime.date, basis : int = 0
     Returns
     -------
     float
-        The day count factor, or percentage of interest that has linearly accrued, for the interest payment period.
+        The day count factor, or percentage of annual interest that has linearly accrued, for the interest payment period.
     """
 
     # Switch calculation methodology by specified basis

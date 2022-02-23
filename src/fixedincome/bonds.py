@@ -76,7 +76,7 @@ def coupon_dates(settlement : datetime.date, maturity : datetime.date, frequency
     _coupon_dates = [maturity]
 
     # Calculate length of coupon period in months
-    coupon_period = dateutil.relativedelta.relativedelta(months=-MONTHS_IN_YEAR//frequency)
+    coupon_period = dateutil.relativedelta.relativedelta(months=-MONTHS_IN_YEAR // frequency)
 
     # Calculate coupon dates backwards from maturity to issuance
     while _coupon_dates[-1] > settlement:
@@ -183,6 +183,6 @@ def yield_(settlement : datetime.date, maturity : datetime.date, rate : float, p
     # Special case for when no remaining coupons to be paid (only principal)
     if len(_coupon_dates) <= 2:
         _day_count_factor = day_count_factor(start=issue, end=settlement, basis=basis, next_=first_interest, freq=frequency)
-        return ((redemption/100 + rate/frequency) - (_PAR/100 + (_day_count_factor * rate))) / (_PAR/100 + (_day_count_factor * rate)) * (frequency / (1 - _day_count_factor * frequency))
+        return ((redemption / 100 + rate / frequency) - (_PAR / 100 + (_day_count_factor * rate))) / (_PAR / 100 + (_day_count_factor * rate)) * (frequency / (1 - _day_count_factor * frequency))
     else: # Use optimization to identify the yield that matches quoted clean price
         return scipy.optimize.newton(func=lambda y : price(settlement=settlement, maturity=maturity, rate=rate, yld=y, redemption=redemption, frequency=frequency, basis=basis) - price_, x0=rate, tol=0.0000001, maxiter=100)
