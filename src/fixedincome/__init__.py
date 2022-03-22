@@ -15,6 +15,6 @@ Available subpackages
         Functions useful for analyzing fixed rate bonds.
 """
 
-__all__ = ['utils', 'bonds']
+__all__ = ['utils', 'bonds', 'yield_curve']
 
 from fixedincome import *
