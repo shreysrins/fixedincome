@@ -40,5 +40,27 @@ def spline():
     raise NotImplementedError("Spline not yet implemented.")
 
 
-def nelson_siegel():
-    raise NotImplementedError("Nelson-Siegel not yet implemented.")
+def nelson_siegel(T : np.ndarray, theta0 : float, theta1 : float, theta2 : float, lambda_ : float) -> np.ndarray:
+    """
+    Calculates the Nelson-Siegel yield curve.
+    
+    Parameters
+    ----------
+    T : np.ndarray
+        List of times at which to calculate yield.
+    theta0 : float
+        A Nelson-Siegel Model parameter.
+    theta1 : float
+        A Nelson-Siegel Model parameter.
+    theta2 : float
+        A Nelson-Siegel Model parameter.
+    lambda_ : float
+        A Nelson-Siegel Model parameter.
+    
+    Returns
+    -------
+    np.ndarray
+        The Nelson-Siegel yield curve.
+    """
+
+    return theta0 + (theta1 + theta2) * (1 - np.exp(-T / lambda_)) / (T / lambda_) - theta2 * np.exp(-T / lambda_)
