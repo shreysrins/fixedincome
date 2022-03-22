@@ -29,7 +29,7 @@ def bootstrap(cash_flows : np.ndarray, prices : np.ndarray) -> np.ndarray:
 
     discount_factors = np.linalg.inv(cash_flows) @ prices
     yields = np.power(discount_factors, np.reshape(-1 / np.arange(start=1, stop=discount_factors.shape[0]+1), newshape=discount_factors.shape)) - 1 # Formula: d = 1/(1 + y)^i
-    return yields
+    return np.reshape(yields, newshape=(yields.shape[0])) # Flatten output
 
 
 def regression():
