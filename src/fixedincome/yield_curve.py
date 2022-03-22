@@ -33,12 +33,12 @@ def bootstrap(cash_flows : np.ndarray, prices : np.ndarray) -> np.ndarray:
 
 
 def regression():
-	pass
+    raise NotImplementedError("Regression not yet implemented.")
 
 
 def spline():
-	pass
+    raise NotImplementedError("Spline not yet implemented.")
 
 
 def nelson_siegel():
-	pass
+    raise NotImplementedError("Nelson-Siegel not yet implemented.")
