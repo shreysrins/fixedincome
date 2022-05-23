@@ -13,6 +13,8 @@ Available subpackages
         Basic functions useful for fixed income applications.
     bonds
         Functions useful for analyzing fixed rate bonds.
+    yield_curve
+        Functions useful for constructing yield curves.
 """
 
 __all__ = ['utils', 'bonds', 'yield_curve']
