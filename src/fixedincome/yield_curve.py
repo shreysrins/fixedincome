@@ -6,6 +6,7 @@ Implements various functions useful for yield curve analytics.
 
 
 import numpy as np
+import statsmodels.api as sm
 
 
 def bootstrap(cash_flows : np.ndarray, prices : np.ndarray) -> np.ndarray:
@@ -32,7 +33,27 @@ def bootstrap(cash_flows : np.ndarray, prices : np.ndarray) -> np.ndarray:
     return np.reshape(yields, newshape=(yields.shape[0])) # Flatten output
 
 
-def regression():
+def regression(cash_flows : np.ndarray, prices : np.ndarray) -> np.ndarray:
+    """
+    Estimates the spot yield curve from a series of bonds. 
+    
+    Parameters
+    ----------
+    cash_flows : np.ndarray
+        Payoff matrix of a series of bonds.
+    prices : np.ndarray
+        Corresponding price of each bond.
+    
+    Returns
+    -------
+    np.ndarray
+        The corresponding estimated spot yield curve.
+    """
+    
+    # Perform linear regression
+    discount_factors = sm.OLS(prices, cash_flows).fit().params
+
+
     raise NotImplementedError("Regression not yet implemented.")
 
 
