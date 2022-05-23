@@ -186,3 +186,7 @@ def yield_(settlement : datetime.date, maturity : datetime.date, rate : float, p
         return ((redemption/100 + rate/frequency) - (_PAR/100 + (_day_count_factor * rate))) / (_PAR/100 + (_day_count_factor * rate)) * (frequency / (1 - _day_count_factor * frequency))
     else: # Use optimization to identify the yield that matches quoted clean price
         return scipy.optimize.newton(func=lambda y : price(settlement=settlement, maturity=maturity, rate=rate, yld=y, redemption=redemption, frequency=frequency, basis=basis) - price_, x0=rate, tol=0.0000001, maxiter=100)
+
+
+def macaulay_duration():
+    pass
